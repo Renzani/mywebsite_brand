@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+
+<html lang="id">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>LRD - Light Rapid Device</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+
+  <style>
+
+    body {
+
+      font-family: 'Inter', sans-serif;
+
+      background-color: #0d1117;
+
+      color: #e5e7eb;
+
+    }
+
+    /* Efek Neon Glow untuk elemen interaktif dan visual */
+    .neon-glow { box-shadow: 0 0 5px #00aaff, 0 0 10px #00aaff; transition: all 0.3s ease; }
+
+    .neon-glow:hover { box-shadow: 0 0 10px #00aaff, 0 0 20px #00aaff, 0 0 30px #00aaff; }
+
+    /* Styling link navigasi */
+    .nav-link { transition: background-color 0.15s, color 0.15s, border-color 0.15s; border-bottom: 2px solid transparent; }
+
+    .nav-link.active { border-color: #00aaff !important; color: #fff !important; background-color: #1f2937 !important; }
+
+    .nav-link:hover { color: #00aaff; }
+
+    /* Styling Slide Produk */
+    .slide-content { 
+
+      opacity: 0; 
+
+      transform: translateY(20px); 
+
+      transition: opacity 0.5s, transform 0.5s; 
+
+      position: absolute; 
+
+      width: 100%; 
+
+      pointer-events: none;
+
+    }
+
+    .slide-content.active { 
+
+      opacity: 1; 
+
+      transform: translateY(0); 
+
+      position: relative; 
+
+      pointer-events: auto;
+
+    }
+    .slider-container { position: relative; min-height: 500px; }
+
+    .slide-nav-button.active { background-color: #00aaff; transform: scale(1.1); }
+  </style>
+
+</head>
+
+<body class="bg-gray-900 text-gray-100 min-h-screen flex flex-col">
+
+  <!-- NAVBAR -->
+
+  <nav class="bg-gray-800/70 backdrop-blur-sm shadow-lg sticky top-0 z-10">
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="flex justify-between items-center h-16">
+
+        <div class="flex-shrink-0 flex items-center">
+
+          <!-- Logo di Navbar tetap menggunakan teks agar ringan -->
+          <button onclick="showSection('home')" class="text-3xl font-extrabold tracking-wider text-cyan-400">
+
+            <span class="inline-block p-1 bg-cyan-700 rounded-lg">L</span>RD
+
+          </button>
+
+        </div>
+
+        <!-- Nav Links -->
+
+        <div class="hidden md:block">
+
+          <div class="ml-10 flex items-baseline space-x-4">
+
+            <a href="#" id="nav-home" onclick="showSection('home')" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-300">Beranda</a>
+
+            <a href="#" id="nav-products" onclick="showSection('products')" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-300">Produk</a>
+
+            <a href="#" id="nav-about" onclick="showSection('about')" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-300">Tentang Kami</a>
+
+            <a href="#" id="nav-account" onclick="showSection('account')" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-300">Akun</a>
+
+          </div>
+
+        </div>
+
+        <!-- Mobile Menu Button -->
+
+        <div class="md:hidden">
+
+          <button id="mobile-menu-button" class="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-md">
+
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+
+                    d="M4 6h16M4 12h16m-7 6h7" />
+
+            </svg>
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Mobile Menu -->
+
+    <div class="md:hidden hidden" id="mobile-menu">
+
+      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+
+        <a href="#" onclick="showSection('home'); toggleMenu();" class="block text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md">Beranda</a>
+
+        <a href="#" onclick="showSection('products'); toggleMenu();" class="block text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md">Produk</a>
+
+        <a href="#" onclick="showSection('about'); toggleMenu();" class="block text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md">Tentang Kami</a>
+
+        <a href="#" onclick="showSection('account'); toggleMenu();" class="block text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md">Akun</a>
+
+      </div>
+
+    </div>
+
+  </nav>
+  <!-- MAIN CONTENT -->
+
+  <main class="flex-grow max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+
+    <!-- HOME -->
+
+    <section id="home-section" class="section-content">
+
+      <div class="text-center">
+
+        <!-- Logo Brand: Mengganti teks dengan gambar placeholder bergaya neon -->
+        <img src="logo.jpeg" 
+             class="mx-auto h-24 w-auto object-contain rounded-xl border-2 border-cyan-500 mb-8 neon-glow" 
+             alt="LRD Brand Logo"
+             onerror="this.onerror=null; this.src='https://placehold.co/250x100/0d1117/e5e7eb/png?text=LRD+Logo+Error';" />
+
+        <h1 class="text-5xl md:text-6xl font-extrabold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-600">
+
+          Light. Rapid. Device.
+
+        </h1>
+
+        <p class="text-lg md:text-xl max-w-3xl mx-auto mb-8">
+
+          LRD adalah janji mobilitas, kecepatan, dan kebebasan. Kami menciptakan perangkat ringan dan cepat agar Anda bisa bekerja di mana saja.
+
+        </p>
+
+        <button onclick="showSection('products')" class="px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-full neon-glow">
+
+          Jelajahi Produk Kami →
+
+        </button>
+
+      </div>
+
+    </section>
+    <!-- PRODUCTS -->
+
+    <section id="products-section" class="section-content hidden">
+
+      <h2 class="text-4xl font-extrabold text-center mb-12">Produk Unggulan LRD Series</h2>
+
+      <div class="bg-gray-800/70 p-6 rounded-2xl border border-blue-700/50 shadow-2xl">
+
+        <div class="slider-container relative overflow-hidden rounded-xl"></div>
+
+        <div id="slide-nav" class="flex justify-center space-x-3 mt-8"></div>
+
+      </div>
+
+    </section>
+    <!-- TENTANG KAMI (VISI/MISI) -->
+
+    <section id="about-section" class="section-content hidden">
+
+      <h2 class="text-4xl font-extrabold text-center mb-12">Tentang LRD</h2>
+
+      <div class="max-w-3xl mx-auto bg-gray-800/70 p-8 rounded-xl shadow-2xl border border-cyan-600/50">
+
+        
+
+        <div class="flex flex-col sm:flex-row items-center justify-center mb-8 text-center sm:text-left">
+
+          <div class="text-7xl font-extrabold tracking-widest text-cyan-400 mb-4 sm:mb-0">
+
+            <span class="inline-block p-2 bg-cyan-700 rounded-xl transform -rotate-12">L</span>R<span class="text-blue-500">D</span>
+
+          </div>
+
+          <p class="sm:ml-6 text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-600">
+
+            Light. Rapid. Device.
+
+          </p>
+
+        </div>
+        <div class="mb-8">
+
+          <h3 class="text-2xl font-bold text-cyan-400 mb-3">Visi Kami</h3>
+
+          <p class="text-lg text-gray-300">
+
+            Menjadi pemimpin pilihan untuk perangkat komputasi portabel yang ringan, cepat, dan inovatif di era digital.
+
+          </p>
+
+        </div>
+        <div>
+
+          <h3 class="text-2xl font-bold text-cyan-400 mb-3">Misi Utama</h3>
+
+          <ul class="list-disc list-inside space-y-2 text-lg text-gray-300">
+
+            <li>Mengembangkan laptop dengan inovasi performa dan desain yang berkelanjutan.</li>
+
+            <li>Menghadirkan estetika minimalis, elegan, dan portabel.</li>
+
+            <li>Memastikan kecepatan optimal untuk multitasking yang mulus.</li>
+
+          </ul>
+
+        </div>
+      </div>
+
+    </section>
+    <!-- ACCOUNT -->
+
+    <section id="account-section" class="section-content hidden">
+
+      <h2 class="text-4xl font-extrabold text-center mb-12">Akses LRD Space</h2>
+
+      <div class="max-w-md mx-auto bg-gray-800/70 p-8 rounded-xl shadow-2xl border border-cyan-600/50">
+
+        <form onsubmit="handleAuth(event)">
+
+          <input id="auth-email" type="email" placeholder="nama@lrd.com" required
+
+                 class="w-full px-4 py-2 mb-4 bg-gray-700 text-white rounded-lg border border-gray-600 focus:ring-cyan-500 focus:border-cyan-500" />
+
+          <input id="auth-password" type="password" placeholder="••••••••" required
+
+                 class="w-full px-4 py-2 mb-6 bg-gray-700 text-white rounded-lg border border-gray-600 focus:ring-cyan-500 focus:border-cyan-500" />
+
+          <div class="flex space-x-4">
+
+            <button type="submit" class="flex-1 bg-cyan-600 hover:bg-cyan-500 text-white font-semibold py-2 rounded-lg neon-glow">Login</button>
+
+            <button type="button" onclick="showRegisterMessage()" class="flex-1 bg-gray-600 hover:bg-gray-500 text-white font-semibold py-2 rounded-lg">Daftar</button>
+
+          </div>
+
+        </form>
+
+        <p id="authMessage" class="text-center mt-4 text-sm text-green-400 hidden"></p>
+
+      </div>
+
+    </section>
+
+  </main>
+  <footer class="bg-gray-900/80 border-t border-gray-700 py-6 text-center text-gray-500 text-sm">
+
+    © 2025 LRD Brand. All Rights Reserved. | <span class="text-cyan-600">Teknologi Bebas Hambatan.</span>
+
+  </footer>
+  <script>
+
+    // === SLIDES DATA (4 produk) ===
+
+    const slidesData = [
+
+      {
+
+        title: "LRD Alpha: Ultrabook Ringan",
+
+        icon: '<svg class="w-12 h-12 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 17h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>',
+
+        description: "Laptop teringan di kelasnya (900g) dengan sasis Mag-Alloy dan performa i9 Rapid Core.",
+
+        imageText: "LRD ALPHA ULTRABOOK PHOTO",
+
+        imageUrl: "./laptop.jpeg"
+
+      },
+
+      {
+
+        title: "LRD Delta: Tablet Kreator Cepat",
+
+        icon: '<svg class="w-12 h-12 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H3a1 1 0 01-1-1v-3a1 1 0 011-1h1a2 2 0 100-4H3a1 1 0 01-1-1V7a1 1 0 011-1h3a1 1 0 011 1v1z"/></svg>',
+
+        description: "Layar 14'' XDR 120Hz dan chip Rapid AI untuk kreator digital sejati.",
+
+        imageText: "LRD DELTA TABLET PHOTO",
+
+        imageUrl: "./tab.jpeg"
+
+      },
+
+      {
+
+        title: "LRD Connect: Konektivitas Bebas",
+
+        icon: '<svg class="w-12 h-12 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>',
+
+        description: "Dongle USB-C 6G tercepat di dunia. Pastikan koneksi Rapid di mana pun Anda berada.",
+
+        imageText: "LRD CONNECT ACCESSORY PHOTO",
+
+        imageUrl: "./accossory.jpeg"
+
+      },
+
+      {
+
+        title: "LRD Ecosystem: Solusi Terintegrasi",
+
+        icon: '<svg class="w-12 h-12 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>',
+
+        description: "Semua produk LRD terhubung mulus untuk pengalaman teknologi tanpa hambatan.",
+
+        imageText: "LRD FAMILY PRODUCTS PHOTO",
+
+        imageUrl: "./family.jpeg"
+
+      },
+
+    ];
+
+    let currentSlide = 0;
+
+    const sliderContainer = document.querySelector(".slider-container");
+
+    const slideNav = document.getElementById("slide-nav");
+    function renderSlides() {
+
+      let slidesHtml = "";
+
+      let navHtml = "";
+
+      slidesData.forEach((slide, index) => {
+
+        const active = index === currentSlide ? "active" : "";
+
+        
+
+        // Mengganti <div> placeholder dengan tag <img>
+
+        slidesHtml += `
+
+          <div class="slide-content ${active}" data-slide-index="${index}">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+
+              
+
+              <!-- Gambar Produk -->
+
+              <img src="${slide.imageUrl}" 
+
+                   alt="${slide.imageText}" 
+
+                   onerror="this.src='https://placehold.co/600x400/1f2937/FF0000?text=Error+Memuat+Gambar'"
+
+                   class="order-2 md:order-1 w-full h-64 md:h-80 object-cover rounded-2xl border-2 border-blue-700/50 shadow-lg neon-glow">
+
+              
+
+              <div class="order-1 md:order-2 text-left">
+
+                ${slide.icon}
+
+                <h3 class="text-3xl font-bold mb-3 text-cyan-400">${slide.title}</h3>
+
+                <p class="text-gray-300">${slide.description}</p>
+
+              </div>
+
+            </div>
+
+          </div>`;
+
+        navHtml += `<button class="slide-nav-button w-4 h-4 rounded-full bg-gray-600 hover:bg-cyan-500 ${active}" onclick="goToSlide(${index})"></button>`;
+
+      });
+
+      sliderContainer.innerHTML = slidesHtml;
+
+      slideNav.innerHTML = navHtml;
+
+    }
+    function goToSlide(i) {
+
+      currentSlide = i;
+
+      renderSlides();
+
+    }
+    function updateNavActive(id) {
+
+      document.querySelectorAll(".nav-link").forEach(l => l.classList.remove("active"));
+
+      const link = document.getElementById(`nav-${id}`);
+
+      if (link) link.classList.add("active");
+
+    }
+    function showSection(id) {
+
+      document.querySelectorAll(".section-content").forEach(s => s.classList.add("hidden"));
+
+      const sec = document.getElementById(`${id}-section`);
+
+      if (sec) sec.classList.remove("hidden");
+
+      updateNavActive(id);
+
+      if (id === "products") renderSlides();
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+    }
+    function handleAuth(e) {
+
+      e.preventDefault();
+
+      const email = document.getElementById("auth-email").value;
+
+      const pass = document.getElementById("auth-password").value;
+
+      const msg = document.getElementById("authMessage");
+
+      if (email && pass) {
+
+        msg.textContent = `Login Berhasil! Selamat datang ${email}.`;
+
+        msg.classList.remove("hidden", "text-yellow-400");
+
+        msg.classList.add("text-green-400");
+
+        setTimeout(() => msg.classList.add("hidden"), 3000);
+
+      }
+
+    }
+    function showRegisterMessage() {
+
+      const msg = document.getElementById("authMessage");
+
+      msg.textContent = "Pendaftaran hanya melalui undangan saat ini.";
+
+      msg.classList.remove("hidden", "text-green-400");
+
+      msg.classList.add("text-yellow-400");
+
+    }
+    function toggleMenu() {
+
+      document.getElementById("mobile-menu").classList.toggle("hidden");
+
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+
+      showSection("home");
+
+      document.getElementById("mobile-menu-button").addEventListener("click", toggleMenu);
+
+    });
+
+  </script>
+</body>
